@@ -18,9 +18,9 @@ class SMPPController extends Controller{
             'message.required' => 'the message field is required'
 
         ]);
-        (new SmsBuilder('82.114.166.86', '5016', 'United', 'will be sent by SMS', 10000))
-            ->setRecipient($request->to, \smpp\SMPP::TON_INTERNATIONAL) //msisdn of recipient
-            ->sendMessage($request->message);
+        (new SmsBuilder('82.114.166.86', 5016, 'United', 'u@3n2', 10000))
+            ->setRecipient("771221030", \smpp\SMPP::TON_INTERNATIONAL) //msisdn of recipient
+            ->sendMessage("test message");
             return $request;
     }
 }

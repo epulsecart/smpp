@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\v1\SMPPController;
 |
 */
 Route::group(['namespace' => 'api\v1', 'prefix' => 'v1'], function () {
-    Route::post('sendsmpp', [SMPPController::class, 'send']);
+    Route::get('sendsmpp', [SMPPController::class, 'send']);
 
 });
 

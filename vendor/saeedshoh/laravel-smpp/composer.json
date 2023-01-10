@@ -1,0 +1,33 @@
+{
+  "name": "saeedshoh/laravel-smpp",
+  "description": "SMS sending via SMPP protocol for Laravel framework.",
+  "keywords": ["sms", "smpp", "laravel", "onlinecity"],
+  "authors": [
+    {
+      "name": "Jan Iwanow",
+      "email": "iwanow.jan@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-mbstring": "*",
+    "php-smpp/php-smpp": "1.2",
+    "illuminate/support": "^5|^6|^7|^8|^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "LaravelSmpp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LaravelSmpp\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LaravelSmpp\\LaravelSmppServiceProvider"
+      ]
+    }
+  }
+}
