@@ -5,23 +5,27 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use PhpSmpp\Service\Sender;
 use smpp\{Address, Client as SmppClient, Smpp, transport\Socket};
+// use  ;
 
 
 class SMPPController extends Controller{
     public function send(Request $request){
-        $validator = Validator::make($request->all(), [
-            'to' => 'required|min:9',
-            'message' =>'required'
-        ], [
-            'phone.required' => 'The phone field is required and must be minimum of 9 digits.',
-            'message.required' => 'the message field is required'
+        // $validator = Validator::make($request->all(), [
+        //     'to' => 'required|min:9',
+        //     'message' =>'required'
+        // ], [
+        //     'phone.required' => 'The phone field is required and must be minimum of 9 digits.',
+        //     'message.required' => 'the message field is required'
 
-        ]);
-        (new SmsBuilder('82.114.166.86', 5016, 'United', 'u@3n2', 10000))
-            ->setRecipient("771221030", \smpp\SMPP::TON_INTERNATIONAL) //msisdn of recipient
-            ->sendMessage("test message");
-            return $request;
+        // ]);
+        // (new SmsBuilder('82.114.166.86', 5016, 'United', 'u@3n2', 10000))
+        //     ->setRecipient("771221030", \smpp\SMPP::TON_INTERNATIONAL) //msisdn of recipient
+        //     ->sendMessage("test message");
+        //     return $request;
+        $service = new Sender(['82.114.166.86'], 'United', 'u@3n2', 'transmitter');
+        $smsId = $service->send(771221030, 'Hello world!', 'Sender');
     }
 }
 
@@ -133,7 +137,8 @@ class SmsBuilder
      */
     public function sendMessage(string $message): void
     {
-        $this->transport->open();
+        // $this->transport->open();
+        info($this->transport->open());
         $this->smppClient->bindTransceiver($this->login, $this->password);
         // strongly recommend use SMPP::DATA_CODING_UCS2 as default encoding in project to prevent problems with non latin symbols
         $this->smppClient->sendSMS($this->from, $this->to, $message, null, SMPP::DATA_CODING_UCS2);
